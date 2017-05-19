@@ -10,19 +10,19 @@ namespace :hosts do
       Host.create!(name: args.hostname)
       puts "Host #{args.hostname} added successfully"
     rescue ActiveRecord::RecordNotUnique
-      puts "The host #{args.hostname} already exist"
+      puts "The host #{args.hostname} already exists"
     rescue StandardError => e
       puts({ error: e.message }.to_json)
     end
   end
 
-  desc 'Deletes hostname from hostname list'
+  desc 'Deletes hostname from hostnames list'
   task :delete, [:hostname] do |t, args|
-    host = Host.find_by_name!(args.hostname)
     begin
+      host = Host.find_by_name!(args.hostname)
       host.destroy
       puts "Host #{args.hostname} deleted successfully"
-    rescue NoMethodError
+    rescue ActiveRecord::RecordNotFound
       puts "The host #{args.hostname} doesn't exist"
     rescue StandardError => e
       puts({ error: e.message }.to_json)
