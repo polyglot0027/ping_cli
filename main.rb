@@ -1,6 +1,7 @@
 require_relative 'config/initialize'
 
 request_interval = ARGV[0].to_i
+request_counter = 1
 
 loop do
   Host.pluck(:id, :name).each do |host_id, hostname|
@@ -22,4 +23,5 @@ loop do
   else
     sleep 60
   end
+  puts "[Request total: #{request_counter += 1}]"
 end
