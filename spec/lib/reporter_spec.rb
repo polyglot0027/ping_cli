@@ -16,6 +16,7 @@ describe Reporter do
     report = Reporter.report('8.8.8.8', '2017-05-01 22:12:20', '2017-05-02 04:12:20')
 
     expect(report).to eq({
+      hostname: "8.8.8.8",
       avg_response_ms: 2,
       min_response_ms: 1,
       max_response_ms: 3,
