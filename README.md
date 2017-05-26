@@ -1,63 +1,74 @@
 # Ping - CLI
-## Pinging tool
-#### Версия Ruby
+A simple ping tool with background mode ability. You can get statistics, add hosts and delete hosts as well.
 
-- Ruby >= 2.4
+## Dependencies
 
-#### Установка зависимостей:
-1. Установка необходимых гемов:
+*ruby ~> 2.4*
+
+*bundler ~> 1.14.6*
+
+#### Install essential gems
 
 ```
 bundle
 ```
 
-2. Прогон миграций для СУБД:
+#### Run DB migrations
 
 ```
 bundle exec rake:db migrate
 ```
 
-#### Запуск приложения:
-Для запуска скрипта требуется ввести в консоль следующие команды из корневой папки приложения:
-1. Для работы в фоновом режиме:
+## Launch
+To launch the script, please run following commands in your CLI from the root app folder.
+
+#### Working in background mode
 
 ```
 ruby ping.rb
 ```
 
-2. Для работы утилиты в консоли в видимом режиме:
+#### Working in visible mode
+
 ```
 ruby main.rb
 ```
 
-Для данного режима доступна возможность установки интервала запросов. Интервал указывается в секундах:
+With this mode you can specify period of time between requests (in seconds).
 
 ```
 ruby main.rb 60
 ```
 
-В данном примере интервал между запросами будет составлять 60 сек.
+## Commands
+Let's look at some commands which you should run in CLI from root app directory.
 
-#### Команды
-Рассмотрим примеры команд, которые необходимо вводить в консоли из корневой папки:
-1. Добавление хоста:
+#### Add host
 ```
 rake hosts:add[8.8.8.8]
 ```
-2. Удаление хоста:
+or
+```
+rake hosts:add[google.com]
+```
+#### Delete host
 ```
 rake hosts:delete[8.8.8.8]
 ```
-3. Сбор статистики за определенный интервал времени:
+or
+```
+rake hosts:delete[google.com]
+```
+#### Get statistics for certain period of time
 ```
 rake report['8.8.8.8','2017-05-01 23:12:20','2017-05-02 23:12:20']
 ```
-4. Работа с ActiveRecord в IRB-сессии
+#### Working with ActiveRecord in IRB session
 ```
 ./bin/console
 ```
-#### Формат получаемой статистики
-Пример тела сообщения:
+#### Statistics format
+Message body example:
 ```
 {
   "hostname":"8.8.8.8",
@@ -67,22 +78,22 @@ rake report['8.8.8.8','2017-05-01 23:12:20','2017-05-02 23:12:20']
   "percent_lost_pings":75
 }
 ```
-, где:
+, where:
 
-`hostname` - имя хоста, IP
+`hostname` - hostname, IP
 
-`avg_response_ms` - среднее время ответа
+`avg_response_ms` - average response time in ms
 
-`min_response_ms` - минимальное время ответа
+`min_response_ms` - minimal response time in ms
 
-`max_response_ms` - максимальное время ответа
+`max_response_ms` - maximal response time in ms
 
-`percent_lost_pings` - процент потерь пакетов
+`percent_lost_pings` - percent of lost packages
 
-за указанный период
+for determined period of time
 
-#### Тестирование:
-для запуска тестов:
+#### Testing
+To launch tests:
 ```
 rspec spec
 ```
